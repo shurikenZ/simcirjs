@@ -638,7 +638,7 @@ var simcir = function($) {
     var $dlg = $('<div></div>').
       addClass('simcir-dialog').
       css({position:'absolute'}).
-      append($title.append($closeButton.css('float', 'right') )).
+      append($title.append($closeButton)).
       append($content).
       append($resizeGrip);
     $('BODY').append($dlg);
@@ -706,11 +706,9 @@ var simcir = function($) {
     var resizeTo = function(width, height) {
 
       if ($dlg.find('.simcir-body').length) {
-        console.log('Resize!');
         var w = width - ($dlg.outerWidth() - $dlg.innerWidth()) - parseInt($dlg.css('padding-left')) - parseInt($dlg.css('padding-right'));
-        var h = height - ($dlg.outerHeight() - $dlg.innerHeight()) - parseInt($dlg.css('padding-top')) - parseInt($dlg.css('padding-bottom')) - $title.outerHeight();
-        $dlg.find('.simcir-body').trigger('requestResize', [w, h]);
-        $dlg.find('.simcir-body').children().trigger('requestResize', [w - ($dlg.find('.simcir-body').outerWidth() - $dlg.find('.simcir-body').innerWidth()), h]);
+        var h = height - ($dlg.outerHeight() - $dlg.innerHeight()) - parseInt($dlg.css('padding-top')) - parseInt($dlg.css('padding-bottom')) - $title.outerHeight() - parseInt($dlg.css('margin-top'))- parseInt($dlg.css('margin-bottom'));
+        $dlg.find('div.simcir-body').trigger('requestResize', [w, h]);        
       }
 
       $dlg.outerWidth(width);
@@ -828,10 +826,14 @@ var simcir = function($) {
     disableSelection($workspace);
 
     $workArea.on('requestResize', function(event, w, h) {
-      $workArea.children('.simcir-workarea').css({width:(w - toolboxWidth) + 'px', height: h + 'px'});
-
+      console.log('Workarea Resize!');
+      //$workArea.children('.simcir-workarea').css({width:(w - toolboxWidth) + 'px', height: h + 'px'});
+      //$dlg.find('.simcir-body').children().trigger('requestResize', [w - ($dlg.find('.simcir-body').outerWidth() - $dlg.find('.simcir-body').innerWidth()), h]);
       //$workspace.attr({width: w, height: h,
       //viewBox: '0 0 ' + w + ' ' + h});
+      $workArea.children('.simcir-workarea').outerWidth(w);
+      $workArea.children('.simcir-workarea').outerHeight(h);
+      event.stopPropagation();
     });
 
     var $defs = createSVGElement('defs');
@@ -1277,8 +1279,10 @@ var simcir = function($) {
     var $dataArea = $('<textarea></textarea>').
       addClass('simcir-json-data-area').
       attr('readonly', 'readonly').on('requestResize', function(event, width, height) {
-        $(this).width(width);
-        $(this).height(height);
+        console.log('Textarea resize!');
+        $(this).outerWidth(width);
+        $(this).outerHeight(height);
+        event.stopPropagation();
       }).trigger('requestResize', [$workspace.width(), $workspace.height()])
     var showData = false;
     var toggle = function() {
@@ -1293,8 +1297,10 @@ var simcir = function($) {
    
     var $simcirbody = $('<div></div>').addClass('simcir-body').on('requestResize', 
       function(event, width, height){        
-        $simcirbody.width(width);
-        $simcirbody.height(height);
+        $simcirbody.outerWidth(width);
+        $simcirbody.outerHeight(height);
+        $simcirbody.children().trigger('requestResize', [$simcirbody.width(), $simcirbody.height()]);
+        event.stopPropagation();
       }
     );
 

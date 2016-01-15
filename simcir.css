@@ -127,7 +127,7 @@
 }
 
 .simcir-dialog {
-  padding: 4px;
+  padding: 8px;
   padding-bottom: 16px;
   border-width: 2px;
   border-style: solid;
@@ -139,13 +139,13 @@
 }
 
 .simcir-dialog-title {
-  margin-right: 4px;
-  padding:5px;
-  padding-right: 0;
+  padding-bottom:5px;
   cursor:move;  
 }
 
 .simcir-dialog-close-button {
+  margin-left: 10px;
+  float:right;
   fill: #666666;
   stroke: none;
   cursor:default;
