@@ -11,14 +11,20 @@
 
 .simcir-body {
   display: inline-block;
+
+  border:1px solid #999999;
 }
 
 .simcir-workspace {
   cursor: default;
   overflow: hidden;
-  border-width: 1px;
-  border-style: solid;
-  border-color: #666666;
+  
+}
+
+.simcir-workarea {
+  padding:0;
+  margin:0;
+  overflow:auto;
 }
 
 .simcir-pin-hole {
@@ -28,6 +34,14 @@
 
 .simcir-toolbox {
   fill: #eeeeee;
+}
+
+.simcir-toolarea {
+  background-color: #eeeeee;
+  display: block;
+  float:left;
+  overflow:auto;
+  overflow-x:hidden;
 }
 
 .simcir-scrollbar {
@@ -107,15 +121,14 @@
 }
 
 .simcir-json-data-area {
-  padding: 0px;
+  padding: 5px;
   outline: none;
-  border-width: 1px;
-  border-style: solid;
-  border-color: #000000;
+  border-width: 0px;
 }
 
 .simcir-dialog {
   padding: 4px;
+  padding-bottom: 16px;
   border-width: 2px;
   border-style: solid;
   border-color: #666666;
@@ -127,16 +140,21 @@
 
 .simcir-dialog-title {
   margin-right: 4px;
+  padding:5px;
+  padding-right: 0;
+  cursor:move;  
 }
 
 .simcir-dialog-close-button {
   fill: #666666;
   stroke: none;
+  cursor:default;
 }
 
 .simcir-dialog-close-button:hover {
   fill: #888888;
   stroke: none;
+  cursor:default;
 }
 
 .simcir-dialog-close-button-symbol {
@@ -144,6 +162,22 @@
   stroke: #ffffff;
   stroke-width: 2;
 }
+
+.simcir-dialog-resize-grip {
+  position:absolute;
+  right:0;
+  bottom:0;
+  fill: none;
+  stroke: none;
+  cursor: nw-resize;
+}
+
+.simcir-dialog-resize-grip-symbol {
+  fill: none;
+  stroke: #aaaaaa;
+  stroke-width: 2;
+}
+
 
 .simcir-label-editor {
   width: 100px;
