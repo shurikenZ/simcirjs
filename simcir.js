@@ -825,17 +825,6 @@ var simcir = function($) {
       attr('class', 'simcir-workspace');
     disableSelection($workspace);
 
-    $workArea.on('requestResize', function(event, w, h) {
-      console.log('Workarea Resize!');
-      //$workArea.children('.simcir-workarea').css({width:(w - toolboxWidth) + 'px', height: h + 'px'});
-      //$dlg.find('.simcir-body').children().trigger('requestResize', [w - ($dlg.find('.simcir-body').outerWidth() - $dlg.find('.simcir-body').innerWidth()), h]);
-      //$workspace.attr({width: w, height: h,
-      //viewBox: '0 0 ' + w + ' ' + h});
-      $workArea.children('.simcir-workarea').outerWidth(w);
-      $workArea.children('.simcir-workarea').outerHeight(h);
-      event.stopPropagation();
-    });
-
     var $defs = createSVGElement('defs');
     $workspace.append($defs);
 
@@ -884,7 +873,10 @@ var simcir = function($) {
     $workspace.append($devicePane);
     $workspace.append($connectorPane);
     $workspace.append($temporaryPane);
-    $workArea.append($('<div></div>').css({width:(workspaceWidth - toolboxWidth) + 'px', height: workspaceHeight + 'px', 'margin-left' : toolboxWidth + 'px'}).addClass('simcir-workarea').append($workspace));
+    $workArea.append($('<div></div>').
+      css({'margin-left' : toolboxWidth + 'px'}).
+      //css({width:(workspaceWidth - toolboxWidth) + 'px', height: workspaceHeight + 'px', 'margin-left' : toolboxWidth + 'px'}).
+      addClass('simcir-workarea').append($workspace));
     //$workArea.css({width:workspaceWidth,height:workspaceHeight});
     var addDevice = function($dev) {
       $devicePane.append($dev);
@@ -1278,12 +1270,17 @@ var simcir = function($) {
     var $workspace = simcir.createWorkspace(data);
     var $dataArea = $('<textarea></textarea>').
       addClass('simcir-json-data-area').
-      attr('readonly', 'readonly').on('requestResize', function(event, width, height) {
+      attr('readonly', 'readonly');
+
+      /*.on('requestResize', function(event, width, height) {
         console.log('Textarea resize!');
         $(this).outerWidth(width);
         $(this).outerHeight(height);
         event.stopPropagation();
-      }).trigger('requestResize', [$workspace.width(), $workspace.height()])
+      }).trigger('requestResize', [$workspace.width(), $workspace.height()])*/
+    $dataArea.outerWidth($workspace.width());
+    $dataArea.outerHeight($workspace.height());
+
     var showData = false;
     var toggle = function() {
       $workspace.css('display', !showData? 'inline' : 'none');
@@ -1299,8 +1296,12 @@ var simcir = function($) {
       function(event, width, height){        
         $simcirbody.outerWidth(width);
         $simcirbody.outerHeight(height);
-        $simcirbody.children().trigger('requestResize', [$simcirbody.width(), $simcirbody.height()]);
-        event.stopPropagation();
+
+        $simcirbody.children('svg').outerWidth($simcirbody.width());
+        $simcirbody.children('svg').outerHeight($simcirbody.height());
+
+        $simcirbody.children('textarea').outerWidth($simcirbody.width());
+        $simcirbody.children('textarea').outerHeight($simcirbody.height());
       }
     );
 
