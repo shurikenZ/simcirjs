@@ -497,7 +497,7 @@ var simcir = function($) {
         $label.text(getLabel() );
       });
 
-      var label_dblClickHandler = function() {
+      var label_dblClickHandler = function(event) {
         // open library,
         event.preventDefault();
         event.stopPropagation();
@@ -681,7 +681,7 @@ var simcir = function($) {
       $(document).off('mousemove', dlg_resize_mouseMoveHandler);
       $(document).off('mouseup', dlg_resize_mouseUpHandler);
     };
-    $resizeGrip.on('mousedown', function() {
+    $resizeGrip.on('mousedown', function(event) {
       event.preventDefault();
       $dlg.detach();
       $('BODY').append($dlg);
