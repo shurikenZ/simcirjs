@@ -1232,7 +1232,7 @@ var simcir = function($) {
     });
     updateConnectors();
 
-    controller($workArea, {
+    controller($workspace, {
       data: getData,
       text: getText
     });

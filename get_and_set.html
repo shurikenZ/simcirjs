@@ -17,7 +17,7 @@ $(function() {
 
   var getCircuitData = function() {
     return $s.controller(
-        $simcir.find('.simcir-workspace') ).text();
+        $simcir.find('.simcir-workarea').find('.simcir-workspace') ).text();
   };
   var setCircuitData = function(data) {
     $simcir.children().remove();
